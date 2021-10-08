@@ -37,7 +37,7 @@ init()
 
 
 function init (){
-   grid = [null, 1, null, null, -1, null, null, 1, null]
+   grid = [null, null, null, null, null, null, null, null, null]
    turn = 1
    winner = null
    messageEl.innerText = "Player 1, it's your turn"
@@ -47,12 +47,11 @@ function init (){
 }
 
 function render(){
-
    for (let i = 0; i < squares.length; i++){
-      if (squares[i].innerText === "X"){
-         grid[i] = 1
+      if (grid[i] === 1){
+         squares[i].innerText = "X"
          squares[i].style.backgroundColor = "red"
-      } else if (squares[i].innerText === "O") {
+      } else if (grid[i] === -1) {
          grid[i] = -1
          squares[i].style.backgroundColor = "white"
       } else if (squares[i].innerText = '') {
@@ -60,23 +59,24 @@ function render(){
          squares[i].style.backgroundColor = ''
       }
    }
-
    if (winner !== null) {
       renderWin(winner)
-   } else playerTurn()
+   }
 }
 
 function playerTurn(event){
+   if (event.target.innerText !== '') {
+      messageEl.innerText = "Please select an unmarked box!"
+      return
+   }
    if (turn === 1){
-      event.target.innerText = "X"
-      console.dir(event.target)
       grid[event.target.id] = 1
    } else if (turn === -1) {
-      event.target.innerText = "O"
       grid[event.target.id] = -1
    }
    turn = turn * -1
    console.log(turn);
+   winCheck()
    render()
    
 }
