@@ -22,7 +22,8 @@ let turn, winner
 const squares = document.querySelectorAll('.square')
 const messageEl = document.getElementById('message')
 const board = document.querySelector('.board')
-// console.dir(board)
+const resetBtn = document.getElementById('reset-button')
+
 
 /*--------------------------- Event Listeners -----------------------------*/
 
@@ -36,9 +37,8 @@ const board = document.querySelector('.board')
 // sq7.addEventListener('click', playerTurn)
 // sq8.addEventListener('click', playerTurn)
 board.addEventListener('click', playerTurn)
-// function test(e){
-//    console.log(e.target);
-// }
+resetBtn.addEventListener('click', init)
+
 /*------------------------------ Functions --------------------------------*/
 
 init()
@@ -48,7 +48,7 @@ function init (){
    grid = [null, null, null, null, null, null, null, null, null]
    turn = 1
    winner = null
-   messageEl.innerText = "Player 1, it's your turn"
+   messageEl.innerHTML = "Player 1 is Xs, Player 2 is Os. <br> Lets Play Tic-Tac-Toe!"
    
    render()
 
@@ -85,27 +85,36 @@ function playerTurn(event){
       grid[event.target.id] = -1
    }
    turn = turn * -1
-
+   resetBtn.removeAttribute('hidden')
    render()
    
 }
 
 function renderWin(winner){
-
+   if (winner === 1) {
+      messageEl.innerText = "Player 1 Wins!!!"
+      board.removeEventListener('click', playerTurn)
+   } else if (winner === -1){
+      messageEl.innerText = "Player 2 Wins!!!"
+      board.removeEventListener('click', playerTurn)
+   } else if (winner === 'T') {
+      messageEl.innerText = "It's a Tie!!!"
+      board.removeEventListener('click', playerTurn)
+   }
 }
 
 function getWinner(){
    winConditions.forEach(function(cond){
-      console.log(cond);
+      let counter = 0
       cond.forEach(function(num){
-         console.log(grid[num]);
-         let counter
          counter += grid[num]
-         console.log(counter);
          })
+      if (Math.abs(counter) === 3){
+         winner = counter / 3
+         return winner
+      } else if (!grid.includes(null)) {
+         winner = 'T'
+         return winner
+         }
       });
-
 }
-
-
-// console.log(getWinner())
