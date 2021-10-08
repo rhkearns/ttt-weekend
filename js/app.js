@@ -1,6 +1,14 @@
 /*------------------------------ Constants --------------------------------*/
 
-// const winConditions = [ [sq0, sq1, sq2], [sq3, sq4, sq5], [sq6, sq7, sq8], [sq0, sq3, sq6], [sq1, sq4, sq7], [sq2, sq5, sq8], [sq0, sq4, sq8], [sq2, sq4, sq6]]
+const winConditions = [ 
+   [0, 1, 2], //Row 1
+   [3, 4, 5], //Row 2
+   [6, 7, 8], //Row 3
+   [0, 3, 6], //Coll 1
+   [1, 4, 7], //Coll 2
+   [2, 5, 8], //Coll 3
+   [0, 4, 8], //Diag L2R
+   [2, 4, 6]] //Diag R2L
 
 
 /*-------------------------- Variables (state) ----------------------------*/
@@ -14,7 +22,7 @@ let turn, winner
 const squares = document.querySelectorAll('.square')
 const messageEl = document.getElementById('message')
 const board = document.querySelector('.board')
-console.dir(board)
+// console.dir(board)
 
 /*--------------------------- Event Listeners -----------------------------*/
 
@@ -28,9 +36,9 @@ console.dir(board)
 // sq7.addEventListener('click', playerTurn)
 // sq8.addEventListener('click', playerTurn)
 board.addEventListener('click', playerTurn)
-function test(e){
-   console.log(e.target);
-}
+// function test(e){
+//    console.log(e.target);
+// }
 /*------------------------------ Functions --------------------------------*/
 
 init()
@@ -53,12 +61,14 @@ function render(){
          squares[i].style.backgroundColor = "red"
       } else if (grid[i] === -1) {
          grid[i] = -1
+         squares[i].innerText = "O"
          squares[i].style.backgroundColor = "white"
-      } else if (squares[i].innerText = '') {
+      } else if (grid[i] = null) {
          grid[i] = null
          squares[i].style.backgroundColor = ''
       }
    }
+   getWinner()
    if (winner !== null) {
       renderWin(winner)
    }
@@ -75,8 +85,7 @@ function playerTurn(event){
       grid[event.target.id] = -1
    }
    turn = turn * -1
-   console.log(turn);
-   winCheck()
+
    render()
    
 }
@@ -85,6 +94,18 @@ function renderWin(winner){
 
 }
 
-function winCheck(){
+function getWinner(){
+   winConditions.forEach(function(cond){
+      console.log(cond);
+      cond.forEach(function(num){
+         console.log(grid[num]);
+         let counter
+         counter += grid[num]
+         console.log(counter);
+         })
+      });
 
 }
+
+
+// console.log(getWinner())
