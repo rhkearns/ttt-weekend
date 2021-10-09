@@ -27,17 +27,14 @@ const resetBtn = document.getElementById('reset-button')
 
 /*--------------------------- Event Listeners -----------------------------*/
 
-// sq0.addEventListener('click', playerTurn)
-// sq1.addEventListener('click', playerTurn)
-// sq2.addEventListener('click', playerTurn)
-// sq3.addEventListener('click', playerTurn)
-// sq4.addEventListener('click', playerTurn)
-// sq5.addEventListener('click', playerTurn)
-// sq6.addEventListener('click', playerTurn)
-// sq7.addEventListener('click', playerTurn)
-// sq8.addEventListener('click', playerTurn)
-board.addEventListener('click', playerTurn)
 resetBtn.addEventListener('click', init)
+
+board.addEventListener('click', function(event){
+   event.preventDefault()
+   if (winner === null){
+      playerTurn(event)
+   }
+})
 
 /*------------------------------ Functions --------------------------------*/
 
@@ -48,10 +45,10 @@ function init (){
    grid = [null, null, null, null, null, null, null, null, null]
    turn = 1
    winner = null
-   messageEl.innerHTML = "Player 1 is Xs, Player 2 is Os. <br> Lets Play Tic-Tac-Toe!"
+   messageEl.innerHTML = "Player 1 is Xs, <br> Player 2 is Os. <br> Lets Play Tic-Tac-Toe!"
    
    render()
-
+   resetBtn.setAttribute('hidden', true)
 }
 
 function render(){
@@ -63,8 +60,9 @@ function render(){
          grid[i] = -1
          squares[i].innerText = "O"
          squares[i].style.backgroundColor = "white"
-      } else if (grid[i] = null) {
+      } else {
          grid[i] = null
+         squares[i].innerText = ""
          squares[i].style.backgroundColor = ''
       }
    }
@@ -93,28 +91,35 @@ function playerTurn(event){
 function renderWin(winner){
    if (winner === 1) {
       messageEl.innerText = "Player 1 Wins!!!"
-      board.removeEventListener('click', playerTurn)
+      // board.removeEventListener('click', playerTurn)
    } else if (winner === -1){
       messageEl.innerText = "Player 2 Wins!!!"
-      board.removeEventListener('click', playerTurn)
+      // board.removeEventListener('click', playerTurn)
    } else if (winner === 'T') {
       messageEl.innerText = "It's a Tie!!!"
-      board.removeEventListener('click', playerTurn)
+      // board.removeEventListener('click', playerTurn)
    }
 }
 
 function getWinner(){
    winConditions.forEach(function(cond){
       let counter = 0
+      console.log(winner);
       cond.forEach(function(num){
          counter += grid[num]
-         })
+         // console.log("counter", counter);
       if (Math.abs(counter) === 3){
          winner = counter / 3
+         // console.log("theres a winner");
          return winner
-      } else if (!grid.includes(null)) {
+      } else if (winner === null && !grid.includes(null)) {
          winner = 'T'
+         // console.log("Tie");
          return winner
+         } else {
+            winner === null
+            return winner
          }
       });
+   })
 }
