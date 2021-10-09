@@ -79,8 +79,10 @@ function playerTurn(event){
    }
    if (turn === 1){
       grid[event.target.id] = 1
+      messageEl.innerText = "It's Player 2's Turn"
    } else if (turn === -1) {
       grid[event.target.id] = -1
+      messageEl.innerText = "It's Player 1's Turn"
    }
    turn = turn * -1
    resetBtn.removeAttribute('hidden')
@@ -91,30 +93,23 @@ function playerTurn(event){
 function renderWin(winner){
    if (winner === 1) {
       messageEl.innerText = "Player 1 Wins!!!"
-      // board.removeEventListener('click', playerTurn)
    } else if (winner === -1){
       messageEl.innerText = "Player 2 Wins!!!"
-      // board.removeEventListener('click', playerTurn)
    } else if (winner === 'T') {
       messageEl.innerText = "It's a Tie!!!"
-      // board.removeEventListener('click', playerTurn)
    }
 }
 
 function getWinner(){
    winConditions.forEach(function(cond){
       let counter = 0
-      console.log(winner);
       cond.forEach(function(num){
          counter += grid[num]
-         // console.log("counter", counter);
       if (Math.abs(counter) === 3){
          winner = counter / 3
-         // console.log("theres a winner");
          return winner
       } else if (winner === null && !grid.includes(null)) {
          winner = 'T'
-         // console.log("Tie");
          return winner
          } else {
             winner === null
