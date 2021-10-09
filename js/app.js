@@ -28,6 +28,7 @@ const resetBtn = document.getElementById('reset-button')
 /*--------------------------- Event Listeners -----------------------------*/
 
 resetBtn.addEventListener('click', init)
+resetBtn.addEventListener('click', resetClasses)
 
 board.addEventListener('click', function(event){
    event.preventDefault()
@@ -54,16 +55,20 @@ function init (){
 function render(){
    for (let i = 0; i < squares.length; i++){
       if (grid[i] === 1){
+         squares[i].classList.add("player1")
+         squares[i].classList.remove("unclaimed")
          squares[i].innerText = "X"
-         squares[i].style.backgroundColor = "red"
+         console.log(squares[i].classList);
       } else if (grid[i] === -1) {
          grid[i] = -1
+         squares[i].classList.add("player2")
+         squares[i].classList.remove("unclaimed")
          squares[i].innerText = "O"
-         squares[i].style.backgroundColor = "white"
+         console.log(squares[i].classList);
       } else {
          grid[i] = null
+         squares[i].classList.add("unclaimed")
          squares[i].innerText = ""
-         squares[i].style.backgroundColor = ''
       }
    }
    getWinner()
@@ -116,5 +121,12 @@ function getWinner(){
             return winner
          }
       });
+   })
+}
+
+function resetClasses(event) {
+   squares.forEach(function(evt){
+      evt.classList.remove("player1")
+      evt.classList.remove("player2")
    })
 }
