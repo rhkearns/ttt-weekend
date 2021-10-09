@@ -23,6 +23,7 @@ const squares = document.querySelectorAll('.square')
 const messageEl = document.getElementById('message')
 const board = document.querySelector('.board')
 const resetBtn = document.getElementById('reset-button')
+const titleEl = document.getElementById('title')
 
 
 /*--------------------------- Event Listeners -----------------------------*/
@@ -46,6 +47,8 @@ function init (){
    grid = [null, null, null, null, null, null, null, null, null]
    turn = 1
    winner = null
+   titleEl.className = ''
+   messageEl.className = ''
    messageEl.innerHTML = "Player 1 is Xs, <br> Player 2 is Os. <br> Lets Play Tic-Tac-Toe!"
    
    render()
@@ -74,6 +77,7 @@ function render(){
    getWinner()
    if (winner !== null) {
       renderWin(winner)
+      titleEl.className = "animate__animated animate__rubberBand"
    }
 }
 
@@ -98,10 +102,13 @@ function playerTurn(event){
 function renderWin(winner){
    if (winner === 1) {
       messageEl.innerText = "Player 1 Wins!!!"
+      messageEl.className = "animate__animated animate__heartBeat"
    } else if (winner === -1){
       messageEl.innerText = "Player 2 Wins!!!"
+      messageEl.className = "animate__animated animate__heartBeat"
    } else if (winner === 'T') {
       messageEl.innerText = "It's a Tie!!!"
+      messageEl.className = "animate__animated animate__heartBeat"
    }
 }
 
