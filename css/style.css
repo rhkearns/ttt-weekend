@@ -1,17 +1,18 @@
 body {
-    background-color: whitesmoke;
+    background-color: rgb(22, 27, 33);
 	/* Use a system font, if none are available use an available sans-sarif   font */
-	font-family: "Arial";
+	font-family: "Roboto Slab", monospace;
 	margin: 0;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  color: #28c900;
 }
 
 section.board {
   display: grid;
-  grid-template-rows: repeat(3, 25vmin);
-  grid-template-columns: repeat(3, 25vmin);
+  grid-template-rows: repeat(3, 10vw);
+  grid-template-columns: repeat(3, 10vw);
   grid-gap: 0vmin;
   margin-left: 125px;
   margin-top: 115px;
@@ -19,39 +20,50 @@ section.board {
 }
 
 div {
-  border: 3px solid black;
-  font-size: 8vmin;
+  border: 3px dashed #28c900;
+  font-size: 8vw;
+  line-height:initial;
   text-align: center;
   vertical-align: middle;
+  font-family: "Roboto Slab";
 }
 
 .btn-reset {
-  border: 3px solid red;
+  border: 3px solid #28c900;
+  color: rgb(22, 27, 33);
+  background-color: #28c900;
+  float: right;
+  margin-right: 500px;
+  margin-top: 25px; 
 }
 
 h1 {
   text-align: center;
   margin-right: -800px;
-  margin-top: 115px;
-  font-weight: bold;
-  font-size: 120px;
-  font-family: "Helvetica";
+  margin-top: 105px;
+  font-weight: 500;
+  font-size: 8vw;
 }
 
 #message {
   text-align: center;
   margin-right: -800px;
-  font-size: 50px;
+  margin-top: 50px;
+  font-size: 3vw;
 }
 
 .player1 {
-  background-color: crimson;
+
 }
 
 .player2 {
-  background-color: cyan;
+
 }
 
 .unclaimed {
 
+}
+
+.player {
+  text-decoration: underline;
 }

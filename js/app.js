@@ -84,10 +84,10 @@ function playerTurn(event){
    }
    if (turn === 1){
       grid[event.target.id] = 1
-      messageEl.innerText = "It's Player 2's Turn"
+      messageEl.innerHTML = "It's <span class='player'>Player 2's</span> Turn"
    } else if (turn === -1) {
       grid[event.target.id] = -1
-      messageEl.innerText = "It's Player 1's Turn"
+      messageEl.innerHTML = "It's <span class='player'>Player 1's</span> Turn"
    }
    turn = turn * -1
    resetBtn.removeAttribute('hidden')
